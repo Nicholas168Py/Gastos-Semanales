@@ -38,8 +38,8 @@ class UI{
         const {presupuesto, restante} = cantidad;
 
         // Agregar a HTML
-        document.querySelector('#total').textContent = presupuesto;
-        document.querySelector('#restante').textContent = restante;
+        document.querySelector('#total').textContent = formatearMoneda(presupuesto);
+        document.querySelector('#restante').textContent = formatearMoneda(restante);
     }
 
     imprimirAlerta(mensaje, tipo){
@@ -82,7 +82,7 @@ class UI{
             console.log(nuevoGasto);
 
             //Agregar el HTML del gasto
-            nuevoGasto.innerHTML = `${nombre} <span class="badge badge-primary badge-pill">$ ${cantidad} </span>
+            nuevoGasto.innerHTML = `${nombre} <span class="badge badge-primary badge-pill">${formatearMoneda(cantidad)} </span>
             `;
 
             // Boton para borrar el gasto
@@ -112,8 +112,6 @@ let presupuesto;
 function preguntarPresupuesto(){
     const presupuestoUsuario = prompt('Cual es tu presupuesto?');
 
-    // console.log(Number( presupuestoUsuario ));
-
     if(presupuestoUsuario === '' || presupuestoUsuario === null || isNaN(presupuestoUsuario) || presupuestoUsuario <= 0 ){
         window.location.reload();
     }
@@ -124,6 +122,16 @@ function preguntarPresupuesto(){
 
     ui.insertarPresupuesto( presupuesto )
 
+}
+
+// Convierte en formato de moneda
+function formatearMoneda(valor) {
+    return valor.toLocaleString('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
 }
 
 // Añade Gastos
