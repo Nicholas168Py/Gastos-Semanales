@@ -101,6 +101,10 @@ class UI{
             gastoListado.removeChild(gastoListado.firstChild)
         }
     }
+
+    actualizarRestante(restante){
+        document.querySelector('#restante').textContent = formatearMoneda(restante);
+    }
 }
 
 //Instanciar
@@ -164,8 +168,9 @@ function agregarGasto(e){
     ui.imprimirAlerta('Gasto agregado correctamente');
 
     // Imprimir los gastos
-    const {gastos} = presupuesto;
+    const {gastos, restante} = presupuesto;
     ui.agregarGastoListado(gastos);
+    ui.actualizarRestante(restante);
 
     //Reinicia el formulario
     formulario.reset()
